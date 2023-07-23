@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Add a new song!</h1>
+
+<form method="post">
+    {{ form.csrf_token }}
+    {{ form.title.label }} {{ form.title() }}
+    {{ form.artist.label }} {{ form.artist() }}
+    <input type="submit" value="Create Song">
+</form>
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="jumbotron">
+  <h1>{{ song.title }}</h1>
+  <p class="lead">{{ song.artist }}</p>
+</div>
+
+<h2>Playlists containing this song:</h2>
+<ul>
+  {% for playlist_song in song.playlist_songs %}
+  <li>
+      <a href="{{ url_for('show_playlist', playlist_id=playlist_song.playlist.id) }}">{{ playlist_song.playlist.name }}</a>
+  </li>
+  {% endfor %}
+{% endblock %}

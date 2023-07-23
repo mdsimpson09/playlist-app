@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Create your own playlist!</h1>
+<form method="post">
+    {{ form.csrf_token }}
+    {{ form.name.label }} {{ form.name() }}
+    {{ form.description.label }} {{ form.description() }}
+    <input type="submit" value="Create Playlist">
+</form>
+{% endblock %}
