@@ -4,6 +4,16 @@
 
 <h1>Add a song to {{ playlist.name }}</h1>
 
-<h1>Add a form that when submitted adds a song to this playlist!</h1>
+<h1>Add a song to this playlist!</h1>
+
+
+<form method="post">
+    {{ form.csrf_token }}
+    {{ form.name.label }} {{ form.name() }}
+    {{ form.genre.label }} {{ form.genre() }}
+    <input type="submit" value="Add a song to this playlist">
+</form>
+
+
 
 {% endblock %}

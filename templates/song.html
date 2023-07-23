@@ -12,6 +12,8 @@
   {% for playlist_song in song.playlist_songs %}
   <li>
       <a href="{{ url_for('show_playlist', playlist_id=playlist_song.playlist.id) }}">{{ playlist_song.playlist.name }}</a>
+
+    
   </li>
   {% endfor %}
 {% endblock %}

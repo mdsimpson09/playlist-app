@@ -9,10 +9,10 @@ app = Flask(__name__)
 # if __name__ == '__main__':
 #     app.run(debug=True)
 app.app_context().push()
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///music'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///playlist_app'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
-app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = True
+app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 app.config['SECRET_KEY'] = "I'LL NEVER TELL!!"
 
 connect_db(app)
@@ -64,8 +64,8 @@ def add_playlist():
 
     if form.validate_on_submit():
         name = form.name.data
-        description = form.description.data
-        playlist = Playlist(name=name, description=description)
+        genre = form.genre.data
+        playlist = Playlist(name=name, genre=genre)
         db.session.add(playlist)
         db.session.commit()
         flash("Playlist created successfully!", "success")
@@ -106,7 +106,8 @@ def add_song():
     if form.validate_on_submit():
         title = form.title.data
         artist = form.artist.data
-        song = Song(title=title, artist=artist)
+        genre = form.genre.data
+        song = Song(title=title, artist=artist, genre=genre)
         db.session.add(song)
         db.session.commit()
         flash("Song added successfully!", "success")
@@ -115,15 +116,17 @@ def add_song():
     return render_template("new_song.html", form=form)
 
 
-@app.route("/playlists/<int:playlist_id>/add-song", methods=["GET", "POST"])
+# @app.route("/playlists/<int:playlist_id>/add-song", methods=["GET", "POST"])
+@app.route("/playlists/add-song/<int:playlist_id>", methods=["GET", "POST"])
 def add_song_to_playlist(playlist_id):
+
     """Add a playlist and redirect to list."""
 
     playlist = Playlist.query.get_or_404(playlist_id)
     form = NewSongForPlaylistForm()
 
     # Restrict form to songs not already on this playlist
-    songs_on_playlist = [song.id for song in playlist.songs]
+    songs_on_playlist = [song.id for song in playlist.playlist_songs]
     form.song.choices = [(song.id, f"{song.title} - {song.artist}") for song in Song.query.filter(Song.id.notin_(songs_on_playlist))]
 
     if form.validate_on_submit():

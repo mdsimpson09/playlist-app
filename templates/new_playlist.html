@@ -6,7 +6,7 @@
 <form method="post">
     {{ form.csrf_token }}
     {{ form.name.label }} {{ form.name() }}
-    {{ form.description.label }} {{ form.description() }}
+    {{ form.genre.label }} {{ form.genre() }}
     <input type="submit" value="Create Playlist">
 </form>
 {% endblock %}

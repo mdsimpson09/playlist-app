@@ -4,13 +4,13 @@
 
 <div class="jumbotron">
   <h1>{{ playlist.name }}!</h1>
-  <p class="lead">{{ playlist.description }}</p>
+  <p class="lead">{{ playlist.genre }}</p>
 </div>
 <h2>Songs in this playlist:</h2>
 <ul>
     {% for playlist_song in playlist.playlist_songs %}
     <li>
-        {{ playlist_song.song.title }} - {{ playlist_song.song.artist }}
+        {{ playlist_song.song.title }} - {{ playlist_song.song.artist }} - {{ playlist_song.song.genre}}
     </li>
     {% endfor %}
 </ul>

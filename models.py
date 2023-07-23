@@ -7,7 +7,8 @@ class Playlist(db.Model):
     __tablename__ = 'playlists'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.Text, nullable=False, unique=True)
-    description = db.Column(db.Text, nullable=False, unique=True)
+    genre = db.Column(db.Text, nullable=False, unique=True)
+    
     playlist_songs = db.relationship("PlaylistSong", backref="playlist", cascade="all, delete-orphan")
 
 class Song(db.Model):
@@ -16,6 +17,8 @@ class Song(db.Model):
     id= db.Column(db.Integer, primary_key=True, autoincrement=True)
     title = db.Column(db.Text, nullable=False, unique= True)
     artist = db.Column(db.Text, nullable=False, unique= True)
+    genre = db.Column(db.Text, nullable=False)
+
     song_playlist_songs = db.relationship("PlaylistSong", backref="song", cascade="all, delete-orphan")
 
 
